@@ -1,0 +1,19 @@
+---
+
+- name: install requisites of prometheus in Centos
+  tags: Centos.snapd 
+  yum:
+    name:
+      - snapd
+    state: latest
+  when: ansible_distribution == "Centos"
+
+- name: Enabling snapd in CentOS
+  tags: snapd, Centos
+  command: systemctl enable --now snapd.socket
+  when: ansible_distribution == "CentOS"
+
+- name: Installation of Prometheus in CentOS
+  tags: Centos,prometheus
+  command: snap install prometheus --classic
+  when: ansible_distribution == "CentOS"

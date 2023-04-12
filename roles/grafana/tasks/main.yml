@@ -1,0 +1,16 @@
+- name: download grafana package in CentOS
+  get_url:
+    url: https://dl.grafana.com/enterprise/release/grafana-enterprise-9.2.2-1x86_64.rpm
+    dest: /tmp/grafana-enterprise-9.2.2.-1.x86_64.rpm
+  when: ansible_diistribution == "Centos"
+
+- name: install grafana
+  yum:
+    name: /tmp/grafana-enterprise-9.2.2-1.x86_64.rpm
+    state: present
+  when: ansible_distribution == "Centos"
+
+- name: start grafana package
+  service: 
+    name: grafana-server 
+    state: restarted
